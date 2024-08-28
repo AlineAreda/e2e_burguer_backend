@@ -77,7 +77,7 @@ yarn add @prisma/client
 ``
   
 
-### ⚙️ Para executar a aplicação:
+### ⚙️ Para executar a aplicação localmente:
 Para execução da aplicação  na pasta do projeto através de um terminal de sua preferência e utilize o comando:
 
 ```
