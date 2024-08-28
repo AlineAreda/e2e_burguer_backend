@@ -37,4 +37,6 @@ app.use((err: Error, req: Request, res: Response, nex: NextFunction) => {
 
 })
 
-app.listen(3333, () => console.log('Servidor está rodando em http://localhost:3333,'));
+//apenas para rodar local o listen
+//app.listen(3333, () => console.log('Servidor está rodando em http://localhost:3333,'));
+export default app;  // Exportando o app para que Vercel o utilize como uma função serverless
