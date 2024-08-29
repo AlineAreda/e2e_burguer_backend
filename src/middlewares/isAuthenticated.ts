@@ -29,8 +29,11 @@ export function isAuthenticated(
         //recuperar o id do token e colocar dentro de variavel user_id dentro do request
         req.user_id = sub;
 
+        console.log('User ID from token:', req.user_id); // Verificação
+
         return next();
     } catch (err) {
+      console.error('Token verification failed:', err);
         return res.status(401).end();
 
     }
