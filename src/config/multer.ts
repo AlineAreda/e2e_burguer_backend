@@ -2,7 +2,7 @@ import crypto from 'crypto';
 import multer from 'multer';
 
 export default {
-    upload() {
+    upload(p0: string) {
         return {
             storage: multer.memoryStorage(),
             filename: (request, file, callback) => {
