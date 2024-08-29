@@ -11,6 +11,9 @@ class ListOrdersService {
         orderBy: {
           created_at: 'desc',
         },
+        include: {
+          items: true,
+        }
       });
 
       return orders;
