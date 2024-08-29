@@ -8,6 +8,7 @@ class DetailUserController {
         try {
               
             const user_id = req.query.user_id as string;
+            console.log("Received user_id:", user_id);
 
             // Verificação se o user_id está presente
             if (!user_id) {
