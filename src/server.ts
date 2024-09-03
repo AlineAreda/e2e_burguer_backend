@@ -30,7 +30,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {  // C
 
     return res.status(500).json({
         status: 'error',
-        message: 'Internal server error.'  // Corrigido o erro de digitação 'mesage' para 'message'
+        message: 'Internal server error.'
     });
 
 });

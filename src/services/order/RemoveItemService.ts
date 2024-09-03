@@ -11,7 +11,6 @@ class RemoveItemService {
     }
 
     try {
-      // Verifica se o item existe
       const existingItem = await prismaClient.item.findUnique({
         where: {
           id: item_id,
@@ -21,8 +20,6 @@ class RemoveItemService {
       if (!existingItem) {
         throw new Error("Item não encontrado.");
       }
-
-      // Remove o item
       const order = await prismaClient.item.delete({
         where: { id: item_id },
       });

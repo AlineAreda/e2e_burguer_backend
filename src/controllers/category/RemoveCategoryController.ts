@@ -5,7 +5,6 @@ class RemoveCategoryController {
     async handle(req: Request, res: Response) {
         const category_id = req.query.category_id as string;
 
-        // Validação de entrada
         if (!category_id) {
             return res.status(400).json({ error: "ID da categoria é necessário." });
         }
@@ -18,7 +17,6 @@ class RemoveCategoryController {
         } catch (error) {
             console.error("Erro ao remover categoria:", error);
 
-            // Personalização do código de status baseado no tipo de erro
             if (error.message.includes("Categoria com o ID")) {
                 return res.status(404).json({ error: error.message });
             }

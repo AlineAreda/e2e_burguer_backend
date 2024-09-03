@@ -8,14 +8,14 @@ class CreateProductController {
 
     const createProductService = new CreateProductService();
 
-    // Validação de entrada
+
     if (!name || !price || !description || !category_id) {
       return res
         .status(400)
         .json({ error: "Campos obrigatórios não preenchidos" });
     }
 
-    //não cadastrar produto com o mesmo nome
+
     const productAlreadyExists = await prismaClient.product.findFirst({
       where: {
         name: name,
@@ -45,7 +45,7 @@ class CreateProductController {
     } catch (error) {
       console.error("Erro ao criar produto:", error);
 
-      // Personalização do código de status baseado no tipo de erro
+
       if (error.message.includes("Categoria não encontrada")) {
         return res.status(404).json({ error: error.message });
       }

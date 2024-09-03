@@ -5,11 +5,14 @@ class CreateUserController {
     async handle(req: Request, res: Response){
         const { name, email, password } = req.body;
 
-        // Validação de entrada
+
         if (!name || !email || !password) {
             return res.status(400).json({ error: 'Nome, e-mail e senha são obrigatórios.' });
         }
 
+        if (!name || name.trim().split(' ').length < 2) {
+          return res.status(400).json({ error: 'Preencha com nome e sobrenome.' });
+      }
         const createUserService = new CreateUserService();
 
         try {
@@ -23,7 +26,6 @@ class CreateUserController {
         } catch (error) {
             console.error("Erro na criação do usuário:", error);
 
-            // Personalização do código de status baseado no tipo de erro
             if (error.message === 'E-mail já cadastrado') {
                 return res.status(409).json({ error: error.message });
             } else if (error.message === 'Formato de e-mail inválido' || error.message.includes('Senha inválida')) {

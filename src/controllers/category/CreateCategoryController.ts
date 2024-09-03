@@ -5,7 +5,6 @@ class CreateCategoryController {
     async handle(req: Request, res: Response) {
         const { name } = req.body;
 
-        // Validação de entrada
         if (!name || name.trim() === '') {
             return res.status(400).json({ error: 'Informe um nome válido para a categoria.' });
         }
@@ -18,7 +17,7 @@ class CreateCategoryController {
         } catch (error) {
             console.error("Erro ao criar categoria:", error);
 
-            // Personalização do código de status baseado no tipo de erro
+
             if (error.message.includes("Categoria já cadastrada")) {
                 return res.status(409).json({ error: error.message });
             }
