@@ -4,12 +4,12 @@ interface ProductRequest {
     name: string;
     price: string; // Mantendo como string conforme o modelo do banco de dados, porém o ideal seria um bigdecimal
     description: string;
-    banner: string;
+    banner?: string; // Agora opcional
     category_id: string;
 }
 
 class CreateProductService {
-    async execute({ name, price, description, banner, category_id }: ProductRequest) {
+    async execute({ name, price, description, banner = "", category_id }: ProductRequest) {
         if (!name || !price || !description || !category_id) {
             throw new Error('Campos obrigatórios não preenchidos');
         }
@@ -35,7 +35,7 @@ class CreateProductService {
                     name: name,
                     price: numericPrice.toString(), // Convertendo o preço de volta para string
                     description: description,
-                    banner: banner,
+                    banner: banner, // Usa o valor de banner ou uma string vazia se não houver imagem
                     category_id: category_id
                 }
             });
