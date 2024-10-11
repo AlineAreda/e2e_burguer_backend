@@ -21,7 +21,7 @@ app.use(
     express.static(path.resolve(__dirname, '..', 'tmp'))
 );
 
-app.use((err: Error, req: Request, res: Response, next: NextFunction) => {  // Corrigido o nome 'next'
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {  
     if (err instanceof Error) {
         return res.status(400).json({
             error: err.message
@@ -36,6 +36,6 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {  // C
 });
 
 // Apenas para rodar localmente
-// app.listen(3333, () => console.log('Servidor está rodando em http://localhost:3333,'));
+//app.listen(3333, () => console.log('Servidor está rodando em http://localhost:3333,'));
 
 export default app;  // Exportando o app para que Vercel o utilize como uma função serverless
