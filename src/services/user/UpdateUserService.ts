@@ -16,27 +16,27 @@ class UpdateUserService {
 
         // Verifica se o usuário existe
         const user = await prismaClient.user.findUnique({
-            where: { id: userId }
+            where: { id: userId },
         });
 
         if (!user) {
             throw new Error('Usuário não encontrado.');
         }
 
-        // Atualização opcional do nome
+        // Validação do nome, se fornecido
         if (name) {
             if (name.trim().split(' ').length < 2) {
                 throw new Error('Preencha com nome e sobrenome.');
             }
         }
 
+        // Prepara os dados para atualização
         let updatedData: { name?: string; password?: string } = {};
-
         if (name) {
             updatedData.name = name;
         }
 
-        // Atualização opcional da senha
+        // Validação e atualização da senha, se fornecida
         if (password) {
             const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,12}$/;
             if (!PASSWORD_REGEX.test(password)) {
@@ -50,7 +50,7 @@ class UpdateUserService {
             updatedData.password = await hash(password, 8);
         }
 
-
+        // Atualiza o usuário no banco de dados
         const updatedUser = await prismaClient.user.update({
             where: { id: userId },
             data: updatedData,
@@ -66,3 +66,4 @@ class UpdateUserService {
 }
 
 export { UpdateUserService };
+

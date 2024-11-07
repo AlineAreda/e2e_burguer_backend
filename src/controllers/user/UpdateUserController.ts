@@ -3,14 +3,14 @@ import { UpdateUserService } from '../../services/user/UpdateUserService';
 
 class UpdateUserController {
     async handle(req: Request, res: Response) {
-        const { userId } = req.params;
+        const { user_id } = req.params; // Obtém `user_id` dos parâmetros da rota
         const { name, password, confirmPassword } = req.body;
 
         const updateUserService = new UpdateUserService();
 
         try {
             const updatedUser = await updateUserService.execute({
-                userId,
+                userId: user_id,
                 name,
                 password,
                 confirmPassword
