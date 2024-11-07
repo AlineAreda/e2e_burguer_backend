@@ -3,7 +3,7 @@ import { UpdateUserService } from '../../services/user/UpdateUserService';
 
 class UpdateUserController {
     async handle(req: Request, res: Response) {
-        const { userId } = req.params; //path
+        const { userId } = req.params;
         const { name, password, confirmPassword } = req.body;
 
         const updateUserService = new UpdateUserService();

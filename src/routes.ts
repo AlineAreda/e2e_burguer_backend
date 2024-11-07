@@ -37,7 +37,7 @@ router.post('/user', new CreateUserController().handle)
 router.post('/session', new AuthUserController().handle)
 router.get('/user/detail', isAuthenticated, new DetailUserController().handle)
 router.delete('/user/delete', isAuthenticated, new RemoveUserController().handle)
-router.put('/user/:user_id', isAuthenticated, new UpdateUserController().handle);
+router.put('/user/:userId', isAuthenticated, new UpdateUserController().handle);
 
 //-- ROTAS CATEGORY --
 router.post('/category', isAuthenticated, new CreateCategoryController().handle)
