@@ -5,11 +5,13 @@ import { CreateUserController } from './controllers/user/CreateUserController';
 import { AuthUserController } from './controllers/user/AuthUserController'; 
 import { DetailUserController } from './controllers/user/DetailUserController';
 import { RemoveUserController } from './controllers/user/RemoveUserController';
+import { UpdateUserController } from './controllers/user/UpdateUserController';
 import { CreateCategoryController } from './controllers/category/CreateCategoryController';
 import { ListCategoryController } from './controllers/category/ListCategoryController';
 import { CreateProductController } from './controllers/product/CreateProductController';
 import { ListByCategoryController } from './controllers/product/ListByCategoryController';
-import { DeleteProductController } from './controllers/product/DeleteProductController'
+import { DeleteProductController } from './controllers/product/DeleteProductController';
+import { UpdateProductController } from "./controllers/product/UpdateProductController";  
 import { CreateOrderController } from './controllers/order/CreateOrderController';
 import { RemoveOrderController } from './controllers/order/RemoveOrderController';
 import { AddItemController } from './controllers/order/AddItemController';
@@ -23,8 +25,6 @@ import { RemoveCategoryController } from './controllers/category/RemoveCategoryC
 import { isAuthenticated } from './middlewares/isAuthenticated';
 
 import uploadConfig from './config/multer';
-import { ListOrdersService } from "./services/order/ListOrdersService";
-
 
 
 
@@ -33,10 +33,11 @@ const router = Router();
 const upload = multer(uploadConfig.upload("./tmp"));
 
 // -- ROTAS USER --
-router.post('/users', new CreateUserController().handle)
+router.post('/user', new CreateUserController().handle)
 router.post('/session', new AuthUserController().handle)
-router.get('/me', isAuthenticated, new DetailUserController().handle)
-router.delete('/user', isAuthenticated, new RemoveUserController().handle)
+router.get('/user/detail', isAuthenticated, new DetailUserController().handle)
+router.delete('/user/delete', isAuthenticated, new RemoveUserController().handle)
+router.put('/user/update', isAuthenticated, new UpdateUserController().handle)
 
 //-- ROTAS CATEGORY --
 router.post('/category', isAuthenticated, new CreateCategoryController().handle)
@@ -47,6 +48,7 @@ router.delete('/category/remove', isAuthenticated, new RemoveCategoryController(
 router.post('/product', isAuthenticated, upload.single('file'), new CreateProductController().handle)
 router.delete('/product/remove/:id', isAuthenticated, new DeleteProductController().handle)
 router.get('/category/product/:category_id', isAuthenticated, new ListByCategoryController().handle)
+router.patch('/product/update/:id', isAuthenticated, upload.single('file'), new UpdateProductController().handle)
 
 
 // -- ROTAS ORDER --

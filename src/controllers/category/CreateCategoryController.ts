@@ -18,10 +18,10 @@ class CreateCategoryController {
             console.error("Erro ao criar categoria:", error);
 
 
-            if (error.message.includes("Categoria já cadastrada")) {
+            if (error.message.includes("Categoria já cadastrada.")) {
                 return res.status(409).json({ error: error.message });
             }
-            return res.status(500).json({ error: "Erro interno no servidor" });
+            return res.status(500).json({ error: "Erro interno no servidor." });
         }
     }
 }

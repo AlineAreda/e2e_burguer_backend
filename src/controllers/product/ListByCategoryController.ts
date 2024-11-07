@@ -17,7 +17,7 @@ class ListByCategoryController {
             return res.json(products);
         } catch (error) {
             console.error('Erro ao listar produtos:', error);
-            return res.status(500).json({ message: "Internal server error." });
+            return res.status(500).json({ message: "Erro interno do Servidor." });
         }
     }
 }

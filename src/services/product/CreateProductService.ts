@@ -11,12 +11,12 @@ interface ProductRequest {
 class CreateProductService {
     async execute({ name, price, description, banner = "", category_id }: ProductRequest) {
         if (!name || !price || !description || !category_id) {
-            throw new Error('Campos obrigatórios não preenchidos');
+            throw new Error('Campos obrigatórios não preenchidos.');
         }
 
         const numericPrice = parseFloat(price);
         if (isNaN(numericPrice)) {
-            throw new Error('Preço inválido');
+            throw new Error('Preço inválido.');
         }
 
         const category = await prismaClient.category.findUnique({
@@ -26,7 +26,7 @@ class CreateProductService {
         });
 
         if (!category) {
-            throw new Error('Categoria não encontrada');
+            throw new Error('Categoria não encontrada.');
         }
 
         try {
@@ -43,7 +43,7 @@ class CreateProductService {
             return product;
         } catch (error) {
             console.error('Erro ao criar produto:', error);
-            throw new Error('Erro ao criar produto');
+            throw new Error('Erro ao cadastrar o produto.');
         }
     }
 }

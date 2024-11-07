@@ -14,7 +14,7 @@ class ListByCategoryService {
             });
 
             if (!category) {
-                throw new Error('Categoria não encontrada');
+                throw new Error('Categoria não encontrada.');
             }
 
             const findByCategory = await prismaClient.product.findMany({
@@ -30,7 +30,7 @@ class ListByCategoryService {
             if (error instanceof Error) {
                 throw new Error(error.message);
             } else {
-                throw new Error('Erro ao listar produtos por categoria');
+                throw new Error('Erro ao listar produtos por categoria.');
             }
         }
     }

@@ -10,7 +10,7 @@ class ListCategoryController {
             return res.json(category);
         } catch (error) {
             console.error("Erro ao listar categorias:", error);
-            return res.status(500).json({ error: "Erro interno no servidor" });
+            return res.status(500).json({ error: "Erro interno no servidor." });
         }
     }
 }

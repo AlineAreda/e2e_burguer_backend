@@ -10,7 +10,7 @@ class DetailUserController {
             const user_id = req.query.user_id as string;
             console.log("Received user_id:", user_id);
 
-
+//inserir o acesso negado 401
             if (!user_id) {
                 return res.status(400).json({ error: "O ID do usuário é obrigatório." });
             }
@@ -21,7 +21,6 @@ class DetailUserController {
             return res.json(user);
         } catch (error) {
             console.error("Erro ao buscar os detalhes do usuário:", error);
-
 
             if (error.message === 'Usuário não encontrado.') {
                 return res.status(404).json({ error: error.message });

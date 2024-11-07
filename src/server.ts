@@ -11,11 +11,11 @@ const swaggerDocs = require('./swagger.json');
 
 const app = express();
 app.use(express.json());
-//app.use(cors());
+
 // Configuração do CORS
 app.use(cors({
   origin: '*', 
-  methods: ['GET', 'POST', 'DELETE', 'PUT'],
+  methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
@@ -37,7 +37,7 @@ app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
 
     return res.status(500).json({
         status: 'error',
-        message: 'Internal server error.'
+        message: 'Erro interno do Servidor.'
     });
 
 });

@@ -8,8 +8,8 @@ class DeleteProductController {
     const deleteProductService = new DeleteProductService();
     
     try {
-      const product = await deleteProductService.execute({ id }); 
-      return res.status(204).json({ message: "Produto deletado com sucesso!", product });
+      await deleteProductService.execute({ id });
+      return res.status(204).send(); // Sem corpo de resposta, pois 204 indica "No Content"
     } catch (error) { 
       return res.status(400).json({ message: error.message });
     }

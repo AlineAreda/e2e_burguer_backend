@@ -17,10 +17,10 @@ class RemoveCategoryController {
         } catch (error) {
             console.error("Erro ao remover categoria:", error);
 
-            if (error.message.includes("Categoria com o ID")) {
+            if (error.message.includes("Categoria com o ID: ")) {
                 return res.status(404).json({ error: error.message });
             }
-            return res.status(500).json({ error: "Erro interno no servidor" });
+            return res.status(500).json({ error: "Erro interno no servidor." });
         }
     }
 }
