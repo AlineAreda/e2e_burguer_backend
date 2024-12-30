@@ -4,47 +4,66 @@ import prismaClient from "../../prisma";
 
 class CreateProductController {
   async handle(req: Request, res: Response) {
-    const { name, price, description, category_id } = req.body;
-    const createProductService = new CreateProductService();
-
-    // Verificação dos campos obrigatórios
-    if (!name || !price || !description || !category_id) {
-      return res.status(400).json({ error: "Campos obrigatórios não preenchidos" });
-    }
-
-    // Verifica se o produto já existe pelo nome
-    const productAlreadyExists = await prismaClient.product.findFirst({
-      where: {
-        name: name,
-      },
-    });
-
-    if (productAlreadyExists) {
-      return res.status(400).json({ error: "Produto já cadastrado!" });
-    }
-
-    // Verifica se há um arquivo enviado e usa o nome do arquivo se presente
-    const banner = req.file ? req.file.filename : "";
-
     try {
+      // Extrai os dados do corpo da requisição
+      const { name, price, description, category_id } = req.body;
+
+      // Verificação de campos obrigatórios
+      if (!name || !price || !description || !category_id) {
+        return res.status(400).json({
+          error:
+            "Campos obrigatórios não preenchidos: nome, preço, descrição e categoria.",
+        });
+      }
+
+      // Verifica se o produto já existe pelo nome
+      const productAlreadyExists = await prismaClient.product.findFirst({
+        where: { name },
+      });
+
+      if (productAlreadyExists) {
+        return res
+          .status(409)
+          .json({ error: "Produto já cadastrado com este nome!" });
+      }
+
+      // Verifica se a imagem do produto foi enviada
+      if (!req.file || !req.file.filename) {
+        return res.status(400).json({ error: "Erro no upload da imagem." });
+      }
+
+      const { filename: banner } = req.file;
+
+      // Conversão do preço para número decimal
+      const numericPrice = parseFloat(price);
+      if (isNaN(numericPrice) || numericPrice <= 0) {
+        return res
+          .status(400)
+          .json({ error: "Preço inválido. Deve ser um número decimal positivo." });
+      }
+
       // Chama o serviço para criar o produto
+      const createProductService = new CreateProductService();
       const product = await createProductService.execute({
         name,
-        price,
+        price: numericPrice,
         description,
         banner,
         category_id,
       });
+
       return res.status(201).json(product);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Erro ao criar produto:", error);
 
       if (error.message.includes("Categoria não encontrada")) {
         return res.status(404).json({ error: error.message });
       }
+
       return res.status(500).json({ error: "Erro interno no servidor." });
     }
   }
 }
 
 export { CreateProductController };
+
