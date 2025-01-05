@@ -4,7 +4,7 @@ interface ProductRequest {
   name: string;
   price: number;
   description: string;
-  banner: string;
+  banner?: string; // Torna o campo opcional
   category_id: string;
 }
 
@@ -41,15 +41,19 @@ class CreateProductService {
 
     try {
       // Criação do produto
-      const product = await prismaClient.product.create({
-        data: {
-          name,
-          price: price.toString(), // Salva o preço como string, conforme modelo do banco
-          description,
-          banner,
-          category_id,
-        },
-      });
+      const data: any = {
+        name,
+        price: price.toString(), // Salva o preço como string, conforme modelo do banco
+        description,
+        category_id,
+      };
+
+      // Inclui o campo banner apenas se ele for fornecido
+      if (banner) {
+        data.banner = banner;
+      }
+
+      const product = await prismaClient.product.create({ data });
 
       return product;
     } catch (error) {

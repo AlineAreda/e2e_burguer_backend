@@ -35,21 +35,19 @@ model Category {
 }
 
 model Product {
-  id String @id @default(uuid())
-  name String
-  price String
+  id          String   @id @default(uuid())
+  name        String
+  price       String
   description String
-  banner String
-  created_at DateTime? @default(now())
-  updated_at DateTime? @default(now())
+  banner      String? // Torna o campo opcional
+  created_at  DateTime? @default(now())
+  updated_at  DateTime? @default(now())
 
-  category Category @relation(fields: [category_id], references: [id])
-  
-
-  @@map("products") 
   category_id String
+  category    Category @relation(fields: [category_id], references: [id])
   items Item[]
 
+  @@map("products") 
 }
 
 model Order {

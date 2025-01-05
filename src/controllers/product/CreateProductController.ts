@@ -27,12 +27,8 @@ class CreateProductController {
           .json({ error: "Produto já cadastrado com este nome!" });
       }
 
-      // Verifica se a imagem do produto foi enviada
-      if (!req.file || !req.file.filename) {
-        return res.status(400).json({ error: "Erro no upload da imagem." });
-      }
-
-      const { filename: banner } = req.file;
+      // Trata o upload da imagem como opcional
+      const banner = req.file?.filename || undefined;
 
       // Conversão do preço para número decimal
       const numericPrice = parseFloat(price);
@@ -48,7 +44,7 @@ class CreateProductController {
         name,
         price: numericPrice,
         description,
-        banner,
+        banner, // `banner` será undefined se não for enviado
         category_id,
       });
 
