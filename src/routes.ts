@@ -4,12 +4,14 @@ import { upload } from "./config/multer";
 import { CreateUserController } from './controllers/user/CreateUserController';
 import { AuthUserController } from './controllers/user/AuthUserController'; 
 import { DetailUserController } from './controllers/user/DetailUserController';
+import { ListAllUsersController } from './controllers/user/ListAllUsersController';
 import { RemoveUserController } from './controllers/user/RemoveUserController';
 import { UpdateUserController } from './controllers/user/UpdateUserController';
 import { CreateCategoryController } from './controllers/category/CreateCategoryController';
 import { ListCategoryController } from './controllers/category/ListCategoryController';
 import { CreateProductController } from './controllers/product/CreateProductController';
 import { ListByCategoryController } from './controllers/product/ListByCategoryController';
+import { ListAllProductsController } from './controllers/product/ListAllProductsController';
 import { DeleteProductController } from './controllers/product/DeleteProductController';
 import { UpdateProductController } from "./controllers/product/UpdateProductController";  
 import { CreateOrderController } from './controllers/order/CreateOrderController';
@@ -30,6 +32,7 @@ const router = Router();
 router.post('/user', new CreateUserController().handle);
 router.post('/session', new AuthUserController().handle);
 router.get('/user/detail', isAuthenticated, new DetailUserController().handle);
+router.get("/users", isAuthenticated, new ListAllUsersController().handle);
 router.delete('/user/delete', isAuthenticated, new RemoveUserController().handle);
 router.put('/user/:user_id', isAuthenticated, new UpdateUserController().handle);
 
@@ -42,6 +45,7 @@ router.delete('/category/remove', isAuthenticated, new RemoveCategoryController(
 router.post('/product', upload.single('file'), isAuthenticated, new CreateProductController().handle);
 router.delete('/product/remove/:id', isAuthenticated, new DeleteProductController().handle);
 router.get('/category/product/:category_id', isAuthenticated, new ListByCategoryController().handle);
+router.get("/products", isAuthenticated, new ListAllProductsController().handle);
 router.patch('/product/:id', isAuthenticated, upload.single('file'), new UpdateProductController().handle);
 
 // -- ROTAS ORDER --
