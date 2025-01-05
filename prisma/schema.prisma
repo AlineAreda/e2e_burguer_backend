@@ -16,6 +16,7 @@ model User {
   name String
   email String
   password String
+  isGestao   Boolean @default(false)
   created_at DateTime? @default(now())
   updated_at DateTime? @default(now())
 
