@@ -4,7 +4,7 @@ interface ProductRequest {
   name: string;
   price: number;
   description: string;
-  banner?: string; // Torna o campo opcional
+  banner?: string; // Torna o banner opcional
   category_id: string;
 }
 
@@ -41,24 +41,20 @@ class CreateProductService {
 
     try {
       // Criação do produto
-      const data: any = {
-        name,
-        price: price.toString(), // Salva o preço como string, conforme modelo do banco
-        description,
-        category_id,
-      };
-
-      // Inclui o campo banner apenas se ele for fornecido
-      if (banner) {
-        data.banner = banner;
-      }
-
-      const product = await prismaClient.product.create({ data });
+      const product = await prismaClient.product.create({
+        data: {
+          name,
+          price: price.toString(),
+          description,
+          banner: banner || "https://via.placeholder.com/150", // banner padrão se o campo não for enviado
+          category_id,
+        },
+      });
 
       return product;
-    } catch (error) {
-      console.error("Erro ao criar produto:", error);
-      throw new Error("Erro ao criar produto.");
+    } catch (error: any) {
+      console.error("Erro ao criar produto:", error.message);
+      throw new Error("Erro ao criar produto. Por favor, tente novamente.");
     }
   }
 }
