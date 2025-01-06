@@ -38,7 +38,7 @@ model Category {
 model Product {
   id          String   @id @default(uuid())
   name        String
-  price       String
+  price       Decimal
   description String
   banner      String? // Torna o campo opcional
   created_at  DateTime? @default(now())

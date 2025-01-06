@@ -1,5 +1,5 @@
-import { Request, Response } from 'express';
-import { CreateProductService } from '../../services/product/CreateProductService';
+import { Request, Response } from "express";
+import { CreateProductService } from "../../services/product/CreateProductService";
 
 class CreateProductController {
   async handle(req: Request, res: Response) {
@@ -9,8 +9,17 @@ class CreateProductController {
       // Validação de campos obrigatórios
       if (!name || !price || !description || !category_id) {
         return res.status(400).json({
-          error: 'Campos obrigatórios não preenchidos: nome, preço, descrição e categoria.',
+          error:
+            "Campos obrigatórios não preenchidos: nome, preço, descrição e categoria.",
         });
+      }
+
+      // Conversão do preço para Decimal
+      const numericPrice = parseFloat(price);
+      if (isNaN(numericPrice)) {
+        return res
+          .status(400)
+          .json({ error: "Preço inválido. Deve ser um número decimal." });
       }
 
       // O campo `banner` será undefined caso nenhum arquivo seja enviado
@@ -19,7 +28,7 @@ class CreateProductController {
       const createProductService = new CreateProductService();
       const product = await createProductService.execute({
         name,
-        price: parseFloat(price),
+        price: numericPrice,
         description,
         banner, // Passa `null` se o banner não for enviado
         category_id,
@@ -27,7 +36,7 @@ class CreateProductController {
 
       return res.status(201).json(product);
     } catch (error: any) {
-      console.error('Erro ao criar produto:', error.message);
+      console.error("Erro ao criar produto:", error.message);
       return res.status(500).json({ error: error.message });
     }
   }
