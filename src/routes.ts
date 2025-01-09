@@ -25,28 +25,29 @@ import { FinishOrderController } from './controllers/order/FinishOrderController
 import { RemoveCategoryController } from './controllers/category/RemoveCategoryController';
 
 import { isAuthenticated } from './middlewares/isAuthenticated';
+import { isGestaoAuthenticated } from "./middlewares/isGestaoAuthenticated";
 
 const router = Router();
 
 // -- ROTAS USER --
 router.post('/user', new CreateUserController().handle);
 router.post('/session', new AuthUserController().handle);
-router.get('/user/detail', isAuthenticated, new DetailUserController().handle);
-router.get("/users", isAuthenticated, new ListAllUsersController().handle);
-router.delete('/user/delete', isAuthenticated, new RemoveUserController().handle);
-router.put('/user/:user_id', isAuthenticated, new UpdateUserController().handle);
+router.get('/user/detail', isAuthenticated, isGestaoAuthenticated, new DetailUserController().handle);
+router.get("/users", isAuthenticated, isGestaoAuthenticated, new ListAllUsersController().handle);
+router.delete('/user/delete', isAuthenticated, isGestaoAuthenticated, new RemoveUserController().handle);
+router.put('/user/:user_id', isAuthenticated, isGestaoAuthenticated, new UpdateUserController().handle);
 
 // -- ROTAS CATEGORY --
-router.post('/category', isAuthenticated, new CreateCategoryController().handle);
+router.post('/category', isAuthenticated, isGestaoAuthenticated, new CreateCategoryController().handle);
 router.get('/category/list', isAuthenticated, new ListCategoryController().handle);
-router.delete('/category/remove', isAuthenticated, new RemoveCategoryController().handle);
+router.delete('/category/remove', isAuthenticated, isGestaoAuthenticated, new RemoveCategoryController().handle);
 
 // -- ROTAS PRODUCT --
-router.post('/product', upload.single('file'), isAuthenticated, new CreateProductController().handle);
-router.delete('/product/remove/:id', isAuthenticated, new DeleteProductController().handle);
+router.post('/product', upload.single('file'), isAuthenticated, isGestaoAuthenticated, new CreateProductController().handle);
+router.delete('/product/remove/:id', isAuthenticated, isGestaoAuthenticated, new DeleteProductController().handle);
 router.get('/category/product/:category_id', isAuthenticated, new ListByCategoryController().handle);
 router.get("/products", isAuthenticated, new ListAllProductsController().handle);
-router.patch('/product/:id', isAuthenticated, upload.single('file'), new UpdateProductController().handle);
+router.patch('/product/:id', isAuthenticated, isGestaoAuthenticated, upload.single('file'), new UpdateProductController().handle);
 
 // -- ROTAS ORDER --
 router.post('/order', isAuthenticated, new CreateOrderController().handle);
