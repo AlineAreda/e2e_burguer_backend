@@ -29,6 +29,7 @@ class AuthUserService {
       {
         name: user.name,
         email: user.email,
+        isGestao: user.isGestao,
       },
       process.env.JWT_SECRET,
       {
@@ -40,6 +41,7 @@ class AuthUserService {
       id: user.id,
       name: user.name,
       email: user.email,
+      isGestao: user.isGestao,
       token: token,
     };
   }
