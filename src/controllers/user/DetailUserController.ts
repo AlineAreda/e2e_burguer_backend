@@ -7,7 +7,7 @@ class DetailUserController {
         const detailUserService = new DetailUserService();
 
         try {
-            const user_id = req.userId; // userId é preenchido pelo middleware isAuthenticated
+          const user_id = req.user_id;; // userId é preenchido pelo middleware isAuthenticated
 
             const user = await detailUserService.execute(user_id);
 
