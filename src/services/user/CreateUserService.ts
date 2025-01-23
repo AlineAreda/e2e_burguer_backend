@@ -12,7 +12,7 @@ interface UserRequest {
 class CreateUserService {
   async execute({ name, email, password, confirmPassword, isGestao }: UserRequest) {
     if (!name) {
-      throw new Error('Nome, e-mail e senha são obrigatórios.');
+      throw new Error('Preencha todos oc campos para prosseguir com o cadastro!');
     }
 
     if (!name || name.trim().split(' ').length < 2) {
