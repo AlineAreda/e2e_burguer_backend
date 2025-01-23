@@ -6,7 +6,7 @@ interface UserRequest {
   email: string;
   password: string;
   confirmPassword: string;
-  isGestao: boolean; // Novo campo
+  isGestao: boolean; 
 }
 
 class CreateUserService {
@@ -29,7 +29,7 @@ class CreateUserService {
     const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,12}$/;
     if (!password || !PASSWORD_REGEX.test(password)) {
       throw new Error(
-        'Senha inválida. A senha deve conter entre 8 e 12 caracteres, incluindo pelo menos uma letra maiúscula, um número e um caractere especial.'
+        'Senha inválida. A senha deve conter entre 8 e 12 caracteres, incluindo ao menos uma letra maiúscula, ao menos um número e ao menos um caractere especial.'
       );
     }
 
@@ -51,13 +51,13 @@ class CreateUserService {
         name,
         email,
         password: passwordHash,
-        isGestao, // Inclui o novo campo
+        isGestao, 
       },
       select: {
         id: true,
         name: true,
         email: true,
-        isGestao: true, // Retorna o campo
+        isGestao: true, 
       },
     });
 
