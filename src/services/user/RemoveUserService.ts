@@ -15,7 +15,7 @@ class RemoveUserService {
 
             return { message: "Usuário excluído com sucesso." };
         } catch (error) {
-            if (error.code === 'P2025') { // Código de erro do Prisma para "registro não encontrado"
+            if (error.code === 'P2025') { //"P2025" Código de erro do Prisma para "registro não encontrado"
                 throw new Error("Usuário não encontrado.");
             } else {
                 // Aqui, considere usar um sistema de log mais robusto

@@ -6,7 +6,7 @@ interface UpdateUserRequest {
   name?: string;
   password?: string;
   confirmPassword?: string;
-  isGestao?: boolean; // Novo campo
+  isGestao?: boolean;
 }
 
 class UpdateUserService {
@@ -46,8 +46,8 @@ class UpdateUserService {
       updatedData.password = await hash(password, 8);
     }
 
-    if (isGestao !== undefined) {
-      updatedData.isGestao = isGestao; // Atualiza o campo
+    if (isGestao !== undefined) {      
+      updatedData.isGestao = isGestao;
     }
 
     const updatedUser = await prismaClient.user.update({
@@ -57,7 +57,7 @@ class UpdateUserService {
         id: true,
         name: true,
         email: true,
-        isGestao: true, // Retorna o campo atualizado
+        isGestao: true,
       },
     });
 
