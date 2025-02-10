@@ -4,7 +4,7 @@ interface ProductRequest {
   name: string;
   price: number;
   description: string;
-  banner?: string; // torna o banner opcional
+  banner?: string; 
   category_id: string;
 }
 
@@ -38,7 +38,6 @@ class CreateProductService {
     }
 
     try {
-      // Criação do produto
       const product = await prismaClient.product.create({
         data: {
           name,

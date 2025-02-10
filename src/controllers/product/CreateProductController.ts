@@ -34,15 +34,16 @@ class CreateProductController {
       return res.status(201).json(product);
     } catch (error: any) {
       console.error("Erro ao criar produto:", error.message);
-      // Se a mensagem de erro indicar que a categoria não foi encontrada, retorna 404
+
       if (error.message.includes("Categoria não encontrada")) {
         return res.status(404).json({ error: "Categoria não encontrada" });
       }
-      // Caso contrário, retorna 500 (erro interno)
+      if (error.message.includes("Preço inválido")) {
+        return res.status(400).json({ error: error.message });
+      }
       return res.status(500).json({ error: error.message });
     }
   }
 }
 
 export { CreateProductController };
-
