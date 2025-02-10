@@ -4,7 +4,7 @@ interface ProductRequest {
   name: string;
   price: number;
   description: string;
-  banner?: string; // Torna o banner opcional
+  banner?: string; // torna o banner opcional
   category_id: string;
 }
 
@@ -34,9 +34,7 @@ class CreateProductService {
     });
 
     if (!category) {
-      throw new Error(
-        "Categoria não encontrada. Informe um ID de categoria válido."
-      );
+      throw new Error("Categoria não encontrada. Informe um ID de categoria válido.");
     }
 
     try {
