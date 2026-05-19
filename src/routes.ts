@@ -7,6 +7,8 @@ import { DetailUserController } from './controllers/user/DetailUserController';
 import { DetailAnyUserController } from "./controllers/user/DetailAnyUserController";
 import { ListAllUsersController } from './controllers/user/ListAllUsersController';
 import { RemoveUserController } from './controllers/user/RemoveUserController';
+import { RemoveUserByEmailController } from './controllers/user/RemoveUserByEmailController';
+import { DetailUserByEmailController } from './controllers/user/DetailUserByEmailController';
 import { UpdateUserController } from './controllers/user/UpdateUserController';
 import { CreateCategoryController } from './controllers/category/CreateCategoryController';
 import { ListCategoryController } from './controllers/category/ListCategoryController';
@@ -37,11 +39,8 @@ router.get('/user/detail', isAuthenticated, isGestaoAuthenticated, new DetailUse
 router.get("/users/:id", isAuthenticated,isGestaoAuthenticated, new DetailAnyUserController().handle);
 router.get("/users", isAuthenticated, isGestaoAuthenticated, new ListAllUsersController().handle);
 router.delete('/user/delete', isAuthenticated, isGestaoAuthenticated, new RemoveUserController().handle);
-router.put('/user/:user_id', isAuthenticated, isGestaoAuthenticated, new UpdateUserController().handle);
-
-// -- ROTAS CATEGORY --
-router.post('/category', isAuthenticated, isGestaoAuthenticated, new CreateCategoryController().handle);
-router.get('/category/list', isAuthenticated, new ListCategoryController().handle);
+router.delete('/user/delete-by-email', isAuthenticated, isGestaoAuthenticated, new RemoveUserByEmailController().handle);
+router.get('/user/detail-by-email', isAuthenticated, isGestaoAuthenticated, new DetailUserByEmailController().handle);
 router.delete('/category/remove', isAuthenticated, isGestaoAuthenticated, new RemoveCategoryController().handle);
 
 // -- ROTAS PRODUCT --
